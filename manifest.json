@@ -1,0 +1,36 @@
+{
+	"manifest_version": 2,
+	"name": "ICS Merger Screenshot",
+	"version": "0.1.0",
+
+	"description": "hm",
+
+	"icons": {
+		"48": "icons/screenshot.png"
+	},
+
+	"browser_action": {
+		"browser_style": false,
+		"default_icon": {
+			"48": "icons/screenshot.png"
+		}
+	},
+
+	"permissions": [
+		"<all_urls>",
+		"tabs",
+		"downloads"
+	],
+
+	"background": {
+		"scripts": [
+			"dist/background.js"
+		]
+	},
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["dist/content.js"]
+		}
+	]
+}

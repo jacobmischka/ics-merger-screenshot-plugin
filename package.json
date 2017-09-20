@@ -1,6 +1,6 @@
 {
   "name": "ics-merger-screenshot-plugin",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "dist/bundle.js",
   "repository": "https://github.com/jacobmischka/ics-merger-screenshot-plugin.git",
   "author": "Jacob Mischka <jacob@mischka.me>",
@@ -12,14 +12,16 @@
     "watch:background": "yarn build:background --watch",
     "watch:content": "yarn build:content --watch",
     "build": "run-p build:*",
-    "build:background": "rollup --sourcemap --input 'src/background.js' --output.file 'dist/background.js' --output.format iife",
-    "build:content": "rollup --sourcemap --input 'src/content.js' --output.file 'dist/content.js' --output.format iife",
-    "build:webext": "web-ext build --overwrite-dest"
+    "build:background": "rollup --config --input 'src/background.js' --output.file 'dist/background.js'",
+    "build:content": "rollup --config --input 'src/content.js' --output.file 'dist/content.js'",
+    "build:webext": "web-ext build --ignore-files 'src/*' --ignore-files 'rollup.config.*' --overwrite-dest",
+    "sign": "source ./.env.sh && web-ext sign --ignore-files 'src/*' --ignore-files 'rollup.config.*' --api-key $ICS_MERGER_PLUGIN_KEY --api-secret $ICS_MERGER_PLUGIN_SECRET"
   },
   "devDependencies": {
     "eslint": "^4.7.1",
     "npm-run-all": "^4.1.1",
     "rollup": "^0.50.0",
+    "rollup-plugin-json": "^2.3.0",
     "web-ext": "^2.0.0"
   },
   "dependencies": {}

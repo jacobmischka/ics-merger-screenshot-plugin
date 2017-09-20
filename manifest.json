@@ -1,23 +1,25 @@
 {
 	"manifest_version": 2,
-	"name": "ICS Merger Screenshot",
-	"version": "0.1.0",
+	"name": "ICS Merger Calendar Screenshot",
+	"version": "0.2.0",
 
-	"description": "hm",
+	"description": "Takes a screenshot of the calendar on the current page. Icon by Tomas Knopp from Noun Project.",
 
 	"icons": {
 		"48": "icons/screenshot.png"
 	},
 
-	"browser_action": {
+	"page_action": {
 		"browser_style": false,
 		"default_icon": {
 			"48": "icons/screenshot.png"
-		}
+		},
+		"default_title": "Take screenshot of calendar on current page"
 	},
 
 	"permissions": [
 		"<all_urls>",
+		
 		"tabs",
 		"downloads"
 	],
@@ -29,8 +31,12 @@
 	},
 	"content_scripts": [
 		{
-			"matches": ["<all_urls>"],
-			"js": ["dist/content.js"]
+			"matches": [
+				"https://calendar.mcw-anesthesiology.tech/*"
+			],
+			"js": [
+				"dist/content.js"
+			]
 		}
 	]
 }

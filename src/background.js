@@ -1,4 +1,25 @@
-browser.browserAction.onClicked.addListener(tab => {
+import { content_scripts } from '../manifest.json';
+
+function initializePageAction(tab) {
+	for (let match of content_scripts[0].matches) {
+		let re = new RegExp(match);
+		if (re.test(tab.url)) {
+			browser.pageAction.show(tab.id);
+		}
+	}
+}
+
+browser.tabs.query({}).then(tabs => {
+	for (let tab of tabs) {
+		initializePageAction(tab);
+	}
+});
+
+browser.tabs.onUpdated.addListener((id, changeInfo, tab) => {
+	initializePageAction(tab);
+});
+
+browser.pageAction.onClicked.addListener(tab => {
 
 	browser.tabs.sendMessage(tab.id, {}).then(
 		({dataUrl}) => {
